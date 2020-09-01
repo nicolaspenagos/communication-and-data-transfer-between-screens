@@ -22,7 +22,7 @@ public class ColorSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_color);
+        setContentView(R.layout.activity_settings_color);
 
         blueButton = findViewById(R.id.blueButton);
         whiteButton = findViewById(R.id.whiteButton);
