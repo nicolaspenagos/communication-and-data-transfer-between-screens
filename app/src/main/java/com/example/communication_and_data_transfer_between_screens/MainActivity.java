@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
@@ -52,6 +53,20 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
+        nextButton.setOnClickListener(
+
+                (view)->{
+
+                    SharedPreferences preferences = getSharedPreferences("myLocker", MODE_PRIVATE);
+                    preferences.edit().putString("username", String.valueOf(nameEditText.getText())).apply();
+
+                    Intent i = new Intent(this, GradeCalculation.class);
+                    startActivity(i);
+
+                }
+
+        );
+
         darkMode(false);
 
     }
@@ -63,11 +78,16 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == 101 && resultCode == RESULT_OK){
 
             char color = data.getExtras().getChar("color");
+
+            SharedPreferences preferences = getSharedPreferences("myLocker", MODE_PRIVATE);
+            preferences.edit().putString("username", String.valueOf(nameEditText.getText())).apply();
+
             switch (color) {
 
                 case ColorSettings.BLUE:
 
                     mainLayout.setBackgroundColor(Color.rgb(142, 211, 233));
+                    preferences.edit().putString("colorValue", "142 211 233").apply();
                     darkMode(false);
 
                     break;
