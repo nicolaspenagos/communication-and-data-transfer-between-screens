@@ -89,25 +89,38 @@ public class MainActivity extends AppCompatActivity {
                     mainLayout.setBackgroundColor(Color.rgb(142, 211, 233));
                     preferences.edit().putString("colorValue", "142 211 233").apply();
                     darkMode(false);
-
                     break;
 
                 case ColorSettings.WHITE:
 
                     mainLayout.setBackgroundColor(Color.rgb(255, 255, 255));
+                    preferences.edit().putString("colorValue", "255 255 255").apply();
                     darkMode(false);
-
                     break;
 
                 case ColorSettings.BLACK:
 
                     mainLayout.setBackgroundColor(Color.rgb(38, 38, 38));
+                    preferences.edit().putString("colorValue", "38 38 38").apply();
                     darkMode(true);
-
                     break;
             }
 
         }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences preferences = getSharedPreferences("myLocker", MODE_PRIVATE);
+        String[] color =  preferences.getString("colorValue", "NO_COLOR").split(" ");
+        mainLayout.setBackgroundColor(Color.rgb(Integer.parseInt(color[0]), Integer.parseInt(color[1]), Integer.parseInt(color[2])));
+        if(color[0].equals("38"))
+            darkMode(true);
+        else
+            darkMode(false);
 
     }
 
@@ -125,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
             nameEditText.setTextColor(Color.rgb(0,0,0));
             nameEditText.setHintTextColor(Color.rgb(120,120,120));
 
-
         }
 
     }
+
 }
